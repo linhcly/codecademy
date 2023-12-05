@@ -2,16 +2,18 @@ import random
 import pandas as pd
 pd.set_option('display.max_colwidth', None)
 
-# Loading the data and investigating it
+#1. Loading the data and investigating it
 jeopardy_data = pd.read_csv("jeopardy.csv")
 # print(jeopardy_data.columns)
 
-# Renaming misformatted columns
+#2. Renaming misformatted columns
 jeopardy_data = jeopardy_data.rename(columns = {" Air Date": "Air Date", " Round" : "Round", " Category": "Category", " Value": "Value", " Question":"Question", " Answer": "Answer"})
 # print(jeopardy_data.columns)
 # print(jeopardy_data["Question"])
 
-#3
+#3. Write a function that filters the dataset for questions that contains all of the words in a list of words. 
+# For example, when the list `["King", "England"]` was passed to our function, the function returned a DataFrame of 49 rows. 
+# Every row had the strings `"King"` and `"England"` somewhere in its `" Question"`.
 def filter_data(data,words):
   # create lambda function to specify what we want to see if our words are in the "Question column" which in this case is x
   filter = lambda x: all(word in x for word in words)
@@ -23,7 +25,7 @@ def filter_data(data,words):
 filtered = filter_data(jeopardy_data, ["King", "England"])
 # print(filtered["Question"])
 
-#4 
+#4. Edit original function so that the code be case insensitive 
 def filter_data(data,words):
   # add .lower() to make our filtering case IN-sensitive
   filter = lambda x: all(word.lower() in x.lower() for word in words)
